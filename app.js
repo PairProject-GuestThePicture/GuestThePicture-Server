@@ -4,6 +4,7 @@ const io = require('socket.io')(server);
 
 let rooms = [
   {
+    id: 1,
     title: "Fiah Room",
     description: 'About everthing',
     members: [
@@ -13,6 +14,7 @@ let rooms = [
     ]
   },
   {
+    id: 2,
     title: 'Ichals Room',
     description: 'About animals',
     members: [
@@ -39,7 +41,6 @@ function randomGambar() {
 io.on('connect', function (socket) {
   users = []
   console.log('Someone connected')
-
   socket.on('clientLogin', payload => {
     let isLoggedIn = false
     users.forEach(elem => {
