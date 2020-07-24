@@ -26,8 +26,8 @@ let rooms = [
   }
 ]
 
-let canvas = ''
 let users = []
+let canvas = ''
 let gambar = ['ayam', 'bebek', 'gajah', 'jerapah', 'kucing']
 let jawaban = ''
 
@@ -37,9 +37,23 @@ function randomGambar() {
 }
 
 io.on('connect', function (socket) {
+  users = []
   console.log('Someone connected')
-  // socket === connected client
-  // send data
+
+  socket.on('clientLogin', payload => {
+    let isLoggedIn = false
+    users.forEach(elem => {
+      if (elem == payload) {
+        isLoggedIn = true
+      }
+    })
+
+    if (!isLoggedIn) {
+      users.push(payload)
+    }
+
+    console.log(users)
+  })
 
   //Room
   socket.emit('roomsFromServer', rooms)
@@ -68,6 +82,9 @@ io.on('connect', function (socket) {
   })
 
   //Gameroom
+  if (canvas) {
+    socket.emit('draw', canvas)
+  }
   socket.on('draw', payload => {
     canvas = payload
     socket.broadcast.emit('draw', canvas)
@@ -93,6 +110,10 @@ io.on('connect', function (socket) {
 
   socket.on('stopRound', payload => {
     socket.broadcast.emit('stopRound')
+  })
+
+  socket.on('userWin', payload => {
+    socket.emit('userWin', payload)
   })
 });
 
