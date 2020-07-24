@@ -4,6 +4,7 @@ const io = require('socket.io')(server);
 
 let rooms = [
   {
+    id: 1,
     title: "Fiah Room",
     description:'About everthing',
     members: [
@@ -13,6 +14,7 @@ let rooms = [
     ]
   },
   {
+    id: 2,
     title: 'Ichals Room',
     description: 'About animals',
     members: [
@@ -28,6 +30,11 @@ let rooms = [
 
 io.on('connect', function(socket){
   console.log('Someone connected')
+
+
+
+
+  socket.emit('init', { content: 'Welcome to chat app' });
   // socket === connected client
   // send data
   socket.emit('roomsFromServer', rooms)
@@ -45,7 +52,7 @@ io.on('connect', function(socket){
   socket.on('joinRoom', function(room){
     console.log('someone wanna join the room', room)
     rooms.forEach(room=>{
-      if(room.title == room & room.members.length > 4){
+      if(room.title == room & room.members.length < 4){
         room.members++
         socket.join(room.title)
       }else{
@@ -54,6 +61,7 @@ io.on('connect', function(socket){
       }
     })
   })
+
 });
 
 server.listen(3000, function(){
