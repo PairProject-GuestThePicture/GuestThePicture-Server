@@ -67,12 +67,6 @@ io.on('connect', function (socket) {
           socket.emit('responseJoin', null)       
         }
       }
-      // if(room.title == newRoom && room.members.length < 4){
-      //   socket.join(room.title)
-      // } else if(room.title == newRoom && room.members.length > 4){
-      //   let messag
-      //   socket.emit('fullMember',message)
-      // }
     })
   })
 
