@@ -46,6 +46,10 @@ io.on('connect', function (socket) {
     socket.emit('roomsFromServer', rooms)
   })
   
+  socket.emit('roomaja', function (rooms) {
+    
+  })
+  
   //Room
   socket.emit('roomsFromServer', rooms)
   // receive data
@@ -59,7 +63,7 @@ io.on('connect', function (socket) {
       if(room.title == newRoom){
         if(room.members.length < 4){
           room.members.push()
-          socket.emit('responseJoin', newRoom)
+          socket.emit('responseJoin', )
           socket.join(room.title)
         }else{
           let message = 'Room is full'
