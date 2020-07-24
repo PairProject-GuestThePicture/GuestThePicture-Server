@@ -6,12 +6,23 @@ let rooms = [
   {
     title: "Fiah Room",
     description:'About everthing',
-    members: 1
+    members: [
+      {
+        username: 'fiah'
+      }
+    ]
   },
   {
     title: 'Ichals Room',
     description: 'About animals',
-    members: 1
+    members: [
+      {
+        username: 'ichlas'
+      },
+      {
+        username: 'timothy'
+      }
+    ]
   }
 ]
 
@@ -34,7 +45,7 @@ io.on('connect', function(socket){
   socket.on('joinRoom', function(room){
     console.log('someone wanna join the room', room)
     rooms.forEach(room=>{
-      if(room.title == room & room.members > 4){
+      if(room.title == room & room.members.length > 4){
         room.members++
         socket.join(room.title)
       }else{
